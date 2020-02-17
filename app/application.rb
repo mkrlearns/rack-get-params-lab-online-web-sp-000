@@ -12,7 +12,11 @@ class Application
     elsif req.path.match(/search/)
       resp.write handle_search(req.params["q"])
     elsif req.path.match(/cart/)
-      @@cart.length == 0 ? resp.write "Your cart is empty" : @@cart.each { |item| resp.write "#{item}\n" }
+      if @@cart.length == 0
+        resp.write "Your cart is empty"
+      else
+        @@cart.each { |item| resp.write "#{item}\n" }
+      end
     elsif req.path.match(/add/)
       new_item = req.params["item"]
       if @@items.include?(new_item)
